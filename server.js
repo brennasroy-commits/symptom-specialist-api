@@ -9,7 +9,8 @@
  */
 
 const express = require("express");
-const { paymentMiddleware, Network, Resource } = require("@coinbase/x402-express");
+const { paymentMiddleware } = require("x402-express");
+const { facilitator } = require("@coinbase/x402");
 
 const app = express();
 app.use(express.json());
@@ -138,18 +139,16 @@ app.use(
     {
       "GET /map": {
         price: PRICE_PER_QUERY,
-        network: Network.BaseSepolia, // Switch to Network.Base for mainnet
+        network: "base-sepolia",
         description: "Map one or more symptoms to recommended medical specialists",
       },
       "POST /map-detailed": {
         price: PRICE_PER_QUERY,
-        network: Network.BaseSepolia,
+        network: "base-sepolia",
         description: "Detailed symptom analysis with urgency scoring and notes",
       },
     },
-    {
-      facilitatorUrl: "https://x402.org/facilitator", // Coinbase's public facilitator
-    }
+    facilitator
   )
 );
 
